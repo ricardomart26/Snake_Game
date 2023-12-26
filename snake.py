@@ -26,8 +26,8 @@ class Snake(Turtle):
             new_segment.goto(pos)
             self.segments.append(new_segment)
         self.head: Turtle = self.segments[0]
-        self.head.setheading([LEFT, RIGHT, DOWN, RIGHT][random.randint(0, 4)])
-        self.tail: Turtle = self.segments[len(self.segments) - 1]
+        self.head.setheading([LEFT, RIGHT, DOWN, RIGHT][random.randint(0, 3)])
+        self.tail: Turtle = self.segments[-1]
         self.username: str = username
         self.counter = 0
         
@@ -68,16 +68,18 @@ class Snake(Turtle):
     def detect_colision(self):
         index = 0
         for seg in self.segments:
-            if index < 2:
-                index += 1
-                continue
-            if self.head.distance(seg) == 0:
+            if seg == self.head:
+                pass
+            if self.head.distance(seg) < 0:
+                print("Colision with it self")
                 sys.exit()
                 
     def detect_wall_colision(self):
         if self.get_head().xcor() > 280 or self.get_head().xcor() < -280:
+            print("Colision xcor")
             sys.exit()
         if self.get_head().ycor() > 280 or self.get_head().ycor() < -280:
+            print("Colision ycor")
             sys.exit()
             
 

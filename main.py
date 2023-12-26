@@ -8,6 +8,17 @@ from snake import Snake
 from food import Food
 
 
+class GameIsOn:
+    
+    def __init__(self):
+        self.game_is_on = False
+
+    def start_game(self):
+        self.game_is_on = True
+        
+    def get_game_status(self):
+        return self.game_is_on
+
 
 
 if __name__ == "__main__":
@@ -51,18 +62,19 @@ if __name__ == "__main__":
         screen.onkey(snake.down, keys[1])
         screen.onkey(snake.left, keys[2])
         screen.onkey(snake.right, keys[3])
+    
+    
+    game = GameIsOn()
+
+    screen.onkey(game.start_game, "Return")
+
 
     scoreboard = Scoreboard(snakes)
     screen.update()
 
-    pause = Turtle()
-    pause.color("white")
-    pause.hideturtle()
-    pause.penup()
-    pause.write("Start Game by pressing Enter")
-    input()
-    pause.clear()
-    
+    while not game.game_is_on: 
+        screen.update()
+        time.sleep(0.1)
     
     while 1:
         screen.update()
